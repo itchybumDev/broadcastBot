@@ -100,7 +100,7 @@ def hi(update, context):
 def activate(update, context):
     while True:
         for k in groupChatId.keys():
-            tmpJob:Job = groupChatId.get(k)
+            tmpJob = groupChatId.get(k)
             if tmpJob.chatId < 0:
                 keepSending(update, context, tmpJob)
 
@@ -110,7 +110,7 @@ def activate(update, context):
 @run_async
 def show(update, context):
     for k in groupChatId.keys():
-        tmpJob:Job = groupChatId.get(k)
+        tmpJob = groupChatId.get(k)
         if tmpJob.chatId < 0:
             send_plain_text(update, context, tmpJob.toString())
 
@@ -120,7 +120,7 @@ def updateGroup(update, context):
     id = int(context.args[0])
     frequency = int(context.args[1])
     msg = ' '.join(context.args[2:])
-    tmpJob:Job = groupChatId[id]
+    tmpJob = groupChatId[id]
     tmpJob.set_message(msg)
     tmpJob.set_frequency(frequency)
     saveUserDict()
@@ -130,7 +130,7 @@ def updateGroup(update, context):
 @run_async
 def delete(update, context):
     id = int(context.args[0])
-    tmpJob :Job = groupChatId.get(id)
+    tmpJob  = groupChatId.get(id)
     if id in groupChatId.keys():
         del groupChatId[id]
         saveUserDict()
@@ -138,7 +138,7 @@ def delete(update, context):
 
 
 # Emoticon table: https://apps.timwhitlock.info/emoji/tables/unicode
-def keepSending(update, context, job : Job):
+def keepSending(update, context, job):
     print("{} :: Last sent - {} at {}".format(datetime.today(), job.groupName, job.lastSent))
     if (isinstance(job.lastSent, int)
         or (datetime.today() - job.lastSent).total_seconds() > job.frequency) \
