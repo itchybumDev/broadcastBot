@@ -168,6 +168,9 @@ Update the message sending to the group
 
 /delete [chatId]
 Delete the group from the bot
+
+/iamadmin
+Add admin
     """
     context.bot.send_message(update.effective_chat.id, text=HELP_TEXT, parse_mode=telegram.ParseMode.HTML)
 
