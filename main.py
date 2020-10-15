@@ -162,6 +162,9 @@ Show all Groups that the bot is active
 
 /update [chatId] [frequency in seconds] [message]
 Update the message sending to the group
+*b -- *bBold*b
+*i -- *iItalic*i
+*n -- newline
 
 /delete [chatId]
 Delete the group from the bot
