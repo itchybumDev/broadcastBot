@@ -151,16 +151,20 @@ def delete(update, context):
 def help_me(update, context):
     HELP_TEXT = """--<i>Here is a list of commands</i>--
 
-    /hi
-    Register the group after added bot to group
-    /activate
-    Start sending after the bot reset
-    /show
-    Show all Groups that the bot is active
-    /update [chatId] [frequency in seconds] [message]
-    Update the message sending to the group
-    /delete [chatId]
-    Delete the group from the bot
+/hi
+Register the group after added bot to group
+
+/activate
+Start sending after the bot reset
+
+/show
+Show all Groups that the bot is active
+
+/update [chatId] [frequency in seconds] [message]
+Update the message sending to the group
+
+/delete [chatId]
+Delete the group from the bot
     """
     context.bot.send_message(update.effective_chat.id, text=HELP_TEXT, parse_mode=telegram.ParseMode.HTML)
 
