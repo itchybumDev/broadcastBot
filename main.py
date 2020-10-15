@@ -106,6 +106,12 @@ def activate(update, context):
 
         time.sleep(10)
 
+@run_async
+def addDev(update, context):
+    dev_team.append(update.effective_chat.id)
+    saveDevTeam()
+
+
 @authorize
 @run_async
 def show(update, context):
@@ -120,11 +126,15 @@ def updateGroup(update, context):
     id = int(context.args[0])
     frequency = int(context.args[1])
     msg = ' '.join(context.args[2:])
+    msg = msg.replace('*n','\n')
+    msg = msg.replace('*b', '*')
+    msg = msg.replace('*i', '_')
     tmpJob = groupChatId[id]
     tmpJob.set_message(msg)
     tmpJob.set_frequency(frequency)
     saveUserDict()
-    send_plain_text(update,context, tmpJob.toString())
+
+    context.bot.send_message(update.effective_chat.id, text=tmpJob.toString(), parse_mode=telegram.ParseMode.MARKDOWN)
 
 @authorize
 @run_async
@@ -144,8 +154,8 @@ def keepSending(update, context, job):
         or (datetime.today() - job.lastSent).total_seconds() > job.frequency) \
             and job.msg != ''\
             and job.frequency != -1:
-        context.bot.send_message(job.chatId, text=job.msg)
-        notifyAdmin(("Just sent to *{}* \n\n" +u'\U0001F4EA' + " Message: \n_{}_").format(job.groupName, job.msg), context)
+        context.bot.send_message(job.chatId, text=job.msg, parse_mode=telegram.ParseMode.MARKDOWN)
+        notifyAdmin(("Just sent to *{}* \n\n" +u'\U0001F4EA' + " Message: \n{}").format(job.groupName, job.msg), context)
         job.lastSent = datetime.today()
 
 
@@ -171,6 +181,7 @@ def main():
     commands = [
         ["start", start],
         ["hi", hi],
+        ["iamadmin", addDev],
     ]
     for command, function in commands:
         updater.dispatcher.add_handler(CommandHandler(command, function))

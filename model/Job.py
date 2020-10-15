@@ -21,7 +21,7 @@ class Job:
         self.modifiedOn = datetime.today()
 
     def toString(self):
-        return "ChatId: {} \nGroupName: {} \nMsg: {} \nFrequency: {} seconds \n".format(self.chatId, self.groupName, self.msg
+        return "ChatId: {} \nGroupName: {} \nMsg: \n\n{} \nFrequency: {} seconds \n".format(self.chatId, self.groupName, self.msg
                                                                                         , self.frequency)
     #
     # def toRow(self):
