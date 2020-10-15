@@ -146,6 +146,24 @@ def delete(update, context):
         saveUserDict()
     send_plain_text(update,context, 'Removed this group \n{}'.format(tmpJob.toString()))
 
+@authorize
+@run_async
+def help_me(update, context):
+    HELP_TEXT = """--<i>Here is a list of commands</i>--
+
+    /hi
+    Register the group after added bot to group
+    /activate
+    Start sending after the bot reset
+    /show
+    Show all Groups that the bot is active
+    /update [chatId] [frequency in seconds] [message]
+    Update the message sending to the group
+    /delete [chatId]
+    Delete the group from the bot
+    """
+    context.bot.send_message(update.effective_chat.id, text=HELP_TEXT, parse_mode=telegram.ParseMode.HTML)
+
 
 # Emoticon table: https://apps.timwhitlock.info/emoji/tables/unicode
 def keepSending(update, context, job):
@@ -191,6 +209,7 @@ def main():
         ["show", show],
         ["update", updateGroup],
         ["delete", delete],
+        ["help", help_me],
     ]
     #
     for command, function in admin_commands:
